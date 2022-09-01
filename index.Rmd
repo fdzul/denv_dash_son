@@ -158,6 +158,51 @@ static_bump_map(dataset = x,
 </body>
 </html>
 
+### **<span style="color:#7d9029"> Casos Confirmados por JS & Municipio </span>**
+<html>
+<head>
+<style>
+.myDiv1 {
+  border: 2px outset darkgreen;
+  background-color: darkgreen;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="myDiv1">
+  <h2></h2>
+  <p></p>
+
+#### **<span style="color:white">Casos por Semana & Jurisdición </span>**
+```{r}
+heatmap_confirmados(dataset = x, 
+                    year = 2022, 
+                    size_text = 3,
+                    state = "SONORA",
+                    JS = TRUE,
+                    MPO = TRUE,
+                    EDO = FALSE)
+```
+
+#### **<span style="color:white">Casos por Semana & Municipio</span>**
+```{r}
+heatmap_confirmados(dataset = x, 
+                    year = 2022, 
+                    size_text = 3,
+                    state = "SONORA",
+                    JS = FALSE,
+                    MPO = TRUE,
+                    EDO = FALSE)
+```
+</div>
+</body>
+</html>
+
+
+
+
 ### **<span style="color:#7d9029">Cadenas de Transmisión </span>**
 ```{r cadenas_transmision, out.width="100%", out.height="100%"}
 
@@ -292,6 +337,14 @@ l  |>
     }")
 
 ```
+
+
+### **<span style="color:#7d9029">Log Gaussian Cox Process Spatial</span>**
+```{r spatial_lgcp, out.width="100%", out.height="100%"}
+
+```
+
+
 
 **Vigilancia Entomológica**
 =====================================  
