@@ -158,8 +158,140 @@ static_bump_map(dataset = x,
 </body>
 </html>
 
+### **<span style="color:#7d9029">Cadenas de Transmisión </span>**
+```{r cadenas_transmision, out.width="100%", out.height="100%"}
+
+# Step 1.2. load the dengue dataset ####
+load("C:/Users/HOME/OneDrive/proyects/geocoding_mex/2022/9.RData_geocoded/den_mx_26_sonora_2022_09_01.RData")
 
 
+# Step 1.2. convert the dataset to spatia dataset ####
+y <- y |>
+    sf::st_as_sf(coords = c("long", "lat"),
+             crs = 4326)
+
+# Step 2. extract sonora state boundary ####
+edo <- rgeomex::AGEE_inegi19_mx |>
+    dplyr::filter(CVE_ENT == "26")
+
+# Step 3. extract the dengue dataset of sonora state ####
+y <- y[edo,]
+# 5. subset the spatial dataset ####
+probables <- y |> 
+    dplyr::filter(CVE_DIAG_PROBABLE %in% c(1, 2))
+
+confirmados <- y |>
+    dplyr::filter(DES_DIAG_FINAL %in% c("DENGUE CON SIGNOS DE ALARMA",
+                                        "DENGUE GRAVE",
+                                        "DENGUE NO GRAVE"))
+
+hospitalizados <- y |>
+    dplyr::filter(!is.na(FEC_INGRESO))
+
+
+# step 6. create the palette ####
+pal <- leaflet::colorBin(palette = fishualize::fish(n = length(unique(y$SEM)), 
+                                                    option = "Hypsypops_rubicundus",
+                                                    end = 1,
+                                                    alpha = .5),
+                         domain = y$SEM,
+                         bins = 10)
+
+
+# Ste´p 7. load the transmisión chains ####
+load("C:/Users/HOME/Dropbox/space_time_analysis/knox_tests/10.results/edos/26_sonora/cadenas_transmision_26_sonora.RData")
+
+
+# Step 8.
+
+pal_fac <- leaflet::colorFactor(palette = fishualize::fish(n = length(unique(w$week_factor)),
+                                                       option = "Scarus_hoefleri",
+                                                       direction = -1),
+                            domain = w$week_factor)
+
+# step 7. generate maps ####
+l <- leaflet::leaflet(y)  |> 
+    leaflet::addTiles()  |> 
+    leaflet::addCircleMarkers(color = ~pal(SEM),
+                              group = "DENV",
+                              stroke = FALSE, 
+                              opacity = 0.5,
+                              fillOpacity = 0.5)  |>
+    leaflet::addCircleMarkers(data = probables,
+                              group = "Probables",
+                              color = ~pal(SEM),
+                              stroke = FALSE, 
+                              opacity = 0.5,
+                              fillOpacity = 0.5)  |>
+    leaflet::addCircleMarkers(data = confirmados,
+                              group = "Confirmados",
+                              color = ~pal(SEM),
+                              stroke = FALSE, 
+                              opacity = 0.5,
+                              fillOpacity = 0.5)  |>
+    leaflet::addCircleMarkers(data = hospitalizados,
+                              group = "Hospitalizados",
+                              color = ~pal(SEM),
+                              stroke = FALSE, 
+                              opacity = 0.5,
+                              fillOpacity = 0.5) |>
+    leaflet::addPolylines(data = st_link_week,
+                          color = ~pal_fac(week_factor),
+                          group = "Cadenas de Transmisión",
+                          weight = 5,
+                          opacity = .8)  |>
+    leaflet::addCircleMarkers(data = w,
+                              radius = 10,
+                              fillColor = ~pal_fac(week_factor),
+                              group = "Cadenas de Transmisión",
+                              fillOpacity = .8,
+                              stroke = TRUE,
+                              weight = 5,
+                              color = "black",
+                              opacity = .5)  |>
+    leaflet::addLegend(pal = pal_fac,
+                       values = w$week_factor,
+                       group = "Cadenas de Transmisión",
+                       opacity = 1,
+                       title = "Semana",
+                       position = "topright") |>
+    
+    leaflet::addLegend("upperright", 
+                       group = "legend",
+                       pal = pal, 
+                       values = ~SEM,
+                       title = "Semana Epidemiológica",
+                       opacity = 0.9,
+                       position = "bottomleft") 
+    # generate the tiles and provider ###
+    esri <- grep("^Esri|CartoDB|OpenStreetMap", 
+                 leaflet::providers, 
+                 value = TRUE)
+
+for (provider in esri) {
+    l <- l  |> leaflet::addProviderTiles(provider, 
+                                         group = provider)
+}
+
+l  |>
+    leaflet::addLayersControl(baseGroups = names(esri),
+                              overlayGroups = c("legend", "Cadenas de Transmisión",
+                                                "DENV", "Probables",
+                                                "Confirmados", "Hospitalizados"),
+                              options = leaflet::layersControlOptions(collapsed = TRUE))  |>
+    leaflet::addMiniMap(tiles = esri[[1]], 
+                        toggleDisplay = TRUE,
+                        position = "bottomleft")  |>
+    htmlwidgets::onRender("
+    function(el, x) {
+      var myMap = this;
+      myMap.on('baselayerchange',
+        function (e) {
+          myMap.minimap.changeLayer(L.tileLayer.provider(e.name));
+        })
+    }")
+
+```
 
 **Vigilancia Entomológica**
 =====================================  
