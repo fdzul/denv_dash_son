@@ -196,6 +196,25 @@ heatmap_confirmados(dataset = x,
                     MPO = TRUE,
                     EDO = FALSE)
 ```
+
+#### **<span style="color:white">Casos por Localidad</span>**
+
+```{r bump_maps_localities}
+source('C:/Users/HOME/Dropbox/r_developments/r_dashboards/github_pages/test_dashboard/3.Functions/static_bump_map_loc.R')
+static_bump_map_loc(dataset = x,
+                    year = "2022",
+                    cve_edo = "26",
+                    country_text_x = .01,
+                    country_text_y = 0.08,
+                    axis_start = 0.4,
+                    value_text = 0.36,
+                    size_text_value = 4,
+                    size_text_mpo = 4,
+                    pal_vir = "viridis")
+
+```
+
+
 </div>
 </body>
 </html>
