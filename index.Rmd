@@ -359,10 +359,45 @@ l  |>
 
 
 ### **<span style="color:#7d9029">Log Gaussian Cox Process Spatial</span>**
-```{r spatial_lgcp, out.width="100%", out.height="100%"}
 
+
+<html>
+<head>
+<style>
+.myDiv1 {
+  border: 2px outset darkgreen;
+  background-color: darkgreen;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="myDiv1">
+  <h2></h2>
+  <p></p>
+
+####  **<span style="color:#7d9029"> LGCP Alamos </span>**
+```{r spatial_lgcp_alamos, out.width="100%", out.height="100%"}
+load("C:/Users/HOME/Dropbox/space_time_analysis/knox_tests/8.RData/2022/26_sonora/Alamos262022.RData")
+denhotspots::spatial_lgcp(dataset = y,
+                          locality = "Alamos",
+                          cve_edo = "26",
+                          longitude = "x",
+                          latitude = "y",
+                          k = 30,
+                          plot = FALSE,
+                          aproximation = "gaussian",
+                          integration = "eb",
+                          resolution = 0.005,
+                          approach = "lattice",
+                          cell_size = 3000,
+                          name = "YlGnBu")$map
 ```
 
+</div>
+</body>
+</html>
 
 
 **Vigilancia Entomológica**
