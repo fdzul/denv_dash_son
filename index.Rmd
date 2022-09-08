@@ -377,23 +377,19 @@ l  |>
   <h2></h2>
   <p></p>
 
-####  **<span style="color:#7d9029"> LGCP Alamos </span>**
-```{r spatial_lgcp_alamos, out.width="100%", out.height="100%"}
-load("C:/Users/HOME/Dropbox/space_time_analysis/knox_tests/8.RData/2022/26_sonora/Alamos262022.RData")
-denhotspots::spatial_lgcp(dataset = y,
-                          locality = "Alamos",
-                          cve_edo = "26",
-                          longitude = "x",
-                          latitude = "y",
-                          k = 30,
-                          plot = FALSE,
-                          aproximation = "gaussian",
-                          integration = "eb",
-                          resolution = 0.005,
-                          approach = "lattice",
-                          cell_size = 3000,
-                          name = "YlGnBu")$map
-```
+####  **<span style="color:#7d9029"> Alamos </span>**
+
+
+
+####  **<span style="color:#7d9029"> Ciudad Obregón </span>**
+
+
+####  **<span style="color:#7d9029"> Hermosillo </span>**
+
+
+
+####  **<span style="color:#7d9029"> Navojoa </span>**
+
 
 </div>
 </body>
@@ -406,8 +402,112 @@ denhotspots::spatial_lgcp(dataset = y,
 Column {.tabset}
 ------------------------------------
 
+### **<span style="color:#7d9029">Alamos</span>**
+
+<html>
+<head>
+<style>
+.myDiv1 {
+  border: 2px outset darkgreen;
+  background-color: darkgreen;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="myDiv1">
+  <h2></h2>
+  <p></p>
+
+####  **<span style="color:#7d9029"> Indicador de Ovitrampas </span>**
+``
+
+####  **<span style="color:#7d9029"> Manzanas Calientes </span>**
+```{r manzanas_calientes_alamos, out.width="100%", out.height="100%"}
+
+```
+
+####  **<span style="color:#7d9029"> Predicción de Huevos </span>**
+```{r spde_eggs_alamos, eval=TRUE, echo =FALSE, fig.width=6, fig.height=6}
+knitr::include_graphics("spde_eggs_maps/alamos_eggs_prediction.jpg")
+```
+
+</div>
+</body>
+</html>
+
+### **<span style="color:#7d9029">Ciudad Obregón</span>**
+
+<html>
+<head>
+<style>
+.myDiv1 {
+  border: 2px outset darkgreen;
+  background-color: darkgreen;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="myDiv1">
+  <h2></h2>
+  <p></p>
+
+####  **<span style="color:#7d9029"> Indicador de Ovitrampas </span>**
 
 
+####  **<span style="color:#7d9029"> Manzanas Calientes </span>**
+```{r manzanas_calientes_obregon, out.width="100%", out.height="100%"}
+
+```
+
+####  **<span style="color:#7d9029"> Predicción de Huevos </span>**
+```{r spde_eggs_obregon, eval=TRUE, echo =FALSE, fig.width=6, fig.height=6}
+knitr::include_graphics("spde_eggs_maps/cd_obregon_eggs_prediction.jpg")
+```
+
+### **<span style="color:#7d9029">Hermosillo</span>**
+
+<html>
+<head>
+<style>
+.myDiv1 {
+  border: 2px outset darkgreen;
+  background-color: darkgreen;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="myDiv1">
+  <h2></h2>
+  <p></p>
+
+####  **<span style="color:#7d9029"> Indicador de Ovitrampas </span>**
+```{r indicador_ovitrampas_hermosillo, out.width="100%", out.height="100%"}
+library(ggplot2)
+boldenr::ovitraps_indicator(x = ovis,
+                            nom_loc = "Hermosillo",
+                            all = FALSE)
+```
+
+####  **<span style="color:#7d9029"> Manzanas Calientes </span>**
+```{r manzanas_calientes_hermosillo, out.width="100%", out.height="100%"}
+
+```
+
+####  **<span style="color:#7d9029"> Predicción de Huevos </span>**
+```{r spde_eggs_hermosillo, eval=TRUE, echo =FALSE, fig.width=6, fig.height=6}
+knitr::include_graphics("spde_eggs_maps/hermosillo_eggs_prediction.jpg")
+```
+
+
+</div>
+</body>
+</html>
 
 **Acciones de Prevención y Control**
 =====================================  
