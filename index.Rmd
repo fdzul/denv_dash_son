@@ -514,3 +514,4 @@ knitr::include_graphics("spde_eggs_maps/hermosillo_eggs_prediction.jpg")
 
 Column {.tabset}
 ------------------------------------
+
